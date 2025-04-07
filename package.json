@@ -8,13 +8,20 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
+  "resolutions": {
+    "styled-components": "^5"
+  },
   "dependencies": {
     "@react-router/node": "^7.5.0",
     "@react-router/serve": "^7.5.0",
     "isbot": "^5.1.17",
+    "lucide": "^0.487.0",
+    "lucide-react": "^0.487.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router": "^7.5.0"
+    "react-hook-form": "^7.55.0",
+    "react-router": "^7.5.0",
+    "styled-components": "^6.1.17"
   },
   "devDependencies": {
     "@react-router/dev": "^7.5.0",

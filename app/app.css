@@ -7,9 +7,19 @@
 
 html,
 body {
+  color: black;
   @apply bg-white dark:bg-gray-950;
-
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+.active {
+  background-color: #923df8;
+  border-radius: 10px;
+  color: #ffffff;
+}
+
+.error-border {
+  border: 1px red solid;
 }
