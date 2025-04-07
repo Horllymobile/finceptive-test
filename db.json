@@ -34,55 +34,6 @@
             "title": "Tech Talk",
             "user": "grace",
             "status": "failed"
-        },
-        {
-            "id": "PT-OK07K6PN",
-            "body": "Tips and tricks for a better workflow.",
-            "title": "Tech Talk",
-            "user": "charlie",
-            "status": "success"
-        },
-        {
-            "id": "PT-DQ45HAM4",
-            "body": "Here's a reflection from my past week.",
-            "title": "My Food Journey",
-            "user": "alice",
-            "status": "pending"
-        },
-        {
-            "id": "PT-E7OYVHG7",
-            "body": "Answering common questions from followers.",
-            "title": "The Travel Bug",
-            "user": "frank",
-            "status": "success"
-        },
-        {
-            "id": "PT-JUH1NDAE",
-            "body": "A bit of advice for newcomers.",
-            "title": "Exploring the Future",
-            "user": "john",
-            "status": "success"
-        },
-        {
-            "id": "PT-5VNBP037",
-            "body": "A quick update from my world.",
-            "title": "Daily Musings",
-            "user": "bob",
-            "status": "success"
-        },
-        {
-            "id": "PT-KAA099IX",
-            "body": "This post discusses various trends in the industry.",
-            "title": "Life of a Developer",
-            "user": "john",
-            "status": "pending"
-        },
-        {
-            "id": "PT-OQ3ISCAH",
-            "body": "Thoughts on recent tech innovations.",
-            "title": "The Travel Bug",
-            "user": "eve",
-            "status": "pending"
         }
     ]
 }
