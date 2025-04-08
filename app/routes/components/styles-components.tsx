@@ -1,16 +1,5 @@
 import { styled } from "styled-components";
-import {
-  ArrowRightLeft,
-  ChartPie,
-  FileLock2,
-  FileText,
-  PiggyBank,
-  Plus,
-  Rocket,
-  Settings,
-  Smartphone,
-  Users,
-} from "lucide-react";
+import { ListFilter, Plus } from "lucide-react";
 
 export const Wraper = styled.section`
   width: 100%;
@@ -118,6 +107,10 @@ export const Input = styled.input`
   border: 1px solid #e4e4e7;
 `;
 
+export const SearchInput = styled(Input)`
+  width: 300px;
+`;
+
 export const Button = styled.button``;
 
 export const FlatButton = styled(Button)`
@@ -126,6 +119,38 @@ export const FlatButton = styled(Button)`
   padding: 8px 16px 8px 16px;
   border-radius: 6px;
   background-color: #7000f6;
+`;
+
+export const FilterButton = styled(Button)`
+  border: 1px solid #e4e4e7;
+  display: flex;
+  column-gap: 10px;
+  padding: 8px;
+  border-radius: 6px;
+`;
+
+export const PAGINATION = styled.div`
+  border: 1px solid #e4e4e7;
+  display: flex;
+  column-gap: 5px;
+  padding: 8px;
+  border-radius: 6px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const PAGINATION_CONTAINER = styled.div`
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+  justify-content: start;
+`;
+
+export const FilterIcon = styled(ListFilter)`
+  color: black;
+  width: 18px;
 `;
 
 export const Avatar = styled(Image)`
@@ -147,6 +172,10 @@ export const ParagraphText = styled.p`
   font-size: 14px;
   color: #7f7d83;
   font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 export const ErrorText = styled.p`
@@ -154,47 +183,15 @@ export const ErrorText = styled.p`
   font-size: 12px;
 `;
 
-export const RocketIcon = styled(Rocket)`
+export const StyledIcon = styled.div`
   color: #ffffffb8;
-`;
-
-export const UsersIcon = styled(Users)`
-  color: #ffffffb8;
-`;
-
-export const FilesIcon = styled(FileText)`
-  color: #ffffffb8;
-`;
-
-export const TransfersIcon = styled(ArrowRightLeft)`
-  color: #ffffffb8;
-`;
-
-export const DepositsIcon = styled(FileText)`
-  color: #ffffffb8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* You can add more shared styles here */
 `;
 
 export const AddIcon = styled(Plus)`
-  color: #ffffffb8;
-`;
-
-export const SavingsIcon = styled(PiggyBank)`
-  color: #ffffffb8;
-`;
-
-export const BillPaymentIcon = styled(Smartphone)`
-  color: #ffffffb8;
-`;
-
-export const ReportsIcon = styled(ChartPie)`
-  color: #ffffffb8;
-`;
-
-export const ComplianceIcon = styled(FileLock2)`
-  color: #ffffffb8;
-`;
-
-export const SettingsIcon = styled(Settings)`
   color: #ffffffb8;
 `;
 

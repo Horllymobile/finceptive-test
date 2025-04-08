@@ -8,10 +8,23 @@
 html,
 body {
   color: black;
+  background-color: #ffffff;
   @apply bg-white dark:bg-gray-950;
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+.body-colum {
+  width: 150px;
+}
+
+.title-colum {
+  width: 150px;
+}
+
+.status-column {
+  text-align: center;
 }
 
 .active {

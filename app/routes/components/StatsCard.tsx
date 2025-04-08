@@ -7,6 +7,11 @@ const StatsCardWrapper = styled.div`
   width: 300px;
   /* height: 120px; */
   padding: 16px;
+
+  @media (max-width: 768px) {
+    width: 250px;
+    min-width: 250px;
+  }
 `;
 
 const P = styled.p`

@@ -1,221 +1,215 @@
 import { styled } from "styled-components";
-import { DashboardHeader } from "./components/DashboardHeader";
+import { DashboardHeader, DropDownIcon } from "./components/DashboardHeader";
 import {
-  AddIcon,
-  BillPaymentIcon,
-  Button,
-  ComplianceIcon,
-  DepositsIcon,
-  FilesIcon,
+  FilterButton,
+  FilterIcon,
   NavText,
+  PAGINATION,
+  PAGINATION_CONTAINER,
   ParagraphText,
-  ReportsIcon,
-  RocketIcon,
-  SavingsIcon,
-  SettingsIcon,
+  SearchInput,
   TitleLarge,
-  TransfersIcon,
-  UsersIcon,
   Wraper,
+  StyledIcon,
+  AddIcon,
 } from "./components/styles-components";
 import { StatsCard } from "./components/StatsCard";
-
-const MainDashboardWrapper = styled.section`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-`;
-
-const SideNav = styled.section`
-  width: 20%;
-  /* height: 100vh; */
-  background-color: #7000f6;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const MainPage = styled.section`
-  width: 80%;
-  height: 100vh;
-  border-top: 1.5px solid #eff0f2;
-  padding: 16px 100px 0px 100px;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    padding: 0px 10px 0px 10px;
-    margin-top: 30px;
-    border-top: none;
-  }
-`;
-
-const ProfileWrapper = styled.div`
-  padding: 28px;
-  display: flex;
-  column-gap: 10px;
-  border-bottom: 1px solid #ffffff1f;
-`;
-
-const ContainerWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const StatsCardWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: "50px";
-`;
-
-const AvatarWrapper = styled.div`
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  padding: 8px;
-  background-color: #ffffff1f;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-const AvatarText = styled.div`
-  font-size: 16px;
-  color: #ffffff;
-`;
-
-const H3 = styled.h3`
-  color: #ffffff;
-`;
-
-const H4 = styled.h4`
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: medium;
-`;
-
-const ProfileInfoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const NavItems = styled.div`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const AddButton = styled(Button)`
-  padding: 14px;
-  border-radius: 50%;
-  background-color: #7000f6;
-  color: white;
-`;
-
-const NavItem = styled.div`
-  padding: 12px 8px 12px 8px;
-  width: 80%;
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  align-items: center;
-  justify-content: start;
-  column-gap: 10px;
-`;
-
-const TableWrapper = styled.div`
-  width: 100%;
-  margin-top: 20px;
-`;
-
-const TableHead = styled.thead`
-  width: 100%;
-  border-radius: 10px;
-  background-color: #f9fafb;
-`;
-
-const TableBody = styled.tbody`
-  width: 100%;
-`;
-
-const TABLE = styled.table`
-  width: 100%;
-`;
-
-const TR = styled.tr`
-  width: 100%;
-`;
-const TH = styled.th`
-  padding: 20px;
-  width: 60px;
-  font-weight: 400;
-  font-size: 14px;
-`;
-
-const TD = styled.th`
-  padding: 20px;
-  width: 60px;
-  font-weight: 400;
-  font-size: 14px;
-`;
+import axios from "axios";
+import { useEffect, useState } from "react";
+import {
+  MainDashboardWrapper,
+  SideNav,
+  ProfileWrapper,
+  AvatarWrapper,
+  AvatarText,
+  ProfileInfoWrapper,
+  H3,
+  H4,
+  NavItems,
+  NavItem,
+  MainPage,
+  ContainerWrapper,
+  AddButton,
+  StatsCardWrapper,
+  TableWrapper,
+  TABLE,
+  TableHead,
+  TR,
+  TH,
+  TableBody,
+  TD,
+  SUCCESS_BADGE,
+  FAILED_BADGE,
+  PENDING_BADGE,
+  ActionWrapper,
+  EDIT_BUTTON,
+  DELETE_BUTTON,
+  PencilIcon,
+  TrashIcon,
+  POST_WRAPPER,
+  POST_ITEM,
+  TITLE_TEXT,
+  CONTAINER,
+  FILTER_SECTION,
+  FILTER_CONTAINER,
+} from "./components/DashboardComponent";
+import {
+  ArrowRightLeft,
+  ChartPie,
+  ChevronLeft,
+  ChevronRight,
+  FileLock2,
+  FileText,
+  PiggyBank,
+  Rocket,
+  Settings,
+  Smartphone,
+  Users,
+  Wallet,
+} from "lucide-react";
 
 const navs = [
   {
     name: "Overview",
     active: false,
-    icon: RocketIcon,
+    icon: (
+      <StyledIcon>
+        <Rocket size={20} />
+      </StyledIcon>
+    ),
   },
   {
     name: "Users",
     active: false,
-    icon: UsersIcon,
+    icon: (
+      <StyledIcon>
+        <Users size={20} />
+      </StyledIcon>
+    ),
   },
   {
     name: "Posts",
     active: true,
-    icon: FilesIcon,
+    icon: (
+      <StyledIcon>
+        <FileText size={20} />
+      </StyledIcon>
+    ),
   },
   {
     name: "Transfters",
     active: false,
-    icon: TransfersIcon,
+    icon: (
+      <StyledIcon>
+        <ArrowRightLeft size={20} />
+      </StyledIcon>
+    ),
   },
   {
     name: "Deposits",
     active: false,
-    icon: DepositsIcon,
+    icon: (
+      <StyledIcon>
+        <Wallet size={20} />
+      </StyledIcon>
+    ),
   },
   {
     name: "Savings",
     active: false,
-    icon: SavingsIcon,
+    icon: (
+      <StyledIcon>
+        <PiggyBank size={20} />
+      </StyledIcon>
+    ),
   },
   {
     name: "Bill Payments",
     active: false,
-    icon: BillPaymentIcon,
+    icon: (
+      <StyledIcon>
+        <Smartphone size={20} />
+      </StyledIcon>
+    ),
   },
   {
     name: "Reports",
     active: false,
-    icon: ReportsIcon,
+    icon: (
+      <StyledIcon>
+        <ChartPie size={20} />
+      </StyledIcon>
+    ),
   },
   {
     name: "Compliance",
     active: false,
-    icon: ComplianceIcon,
+    icon: (
+      <StyledIcon>
+        <FileLock2 size={20} />
+      </StyledIcon>
+    ),
   },
   {
     name: "Settings",
     active: false,
-    icon: SettingsIcon,
+    icon: (
+      <StyledIcon>
+        <Settings size={20} />
+      </StyledIcon>
+    ),
   },
 ];
 
+const TEX_CONTAINER = styled(CONTAINER)`
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  justify-content: start;
+`;
+
+const MOBILE_CONTAINER = styled(CONTAINER)`
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  justify-content: end;
+`;
+
+const SPAN = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+type TPost = {
+  id: string;
+  body: string;
+  title: string;
+  user: string;
+  status: string;
+};
+
 export default function Dashboard() {
+  const [posts, setPosts] = useState<TPost[]>([]);
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    const response = await axios.get(
+      "https://my-json-server.typicode.com/Horllymobile/finceptive-db/posts",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      setPosts(response.data);
+      console.log(response);
+    }
+  };
+
   return (
     <Wraper>
       <DashboardHeader></DashboardHeader>
@@ -237,7 +231,7 @@ export default function Dashboard() {
                 key={nav.name}
                 className={`${nav.active ? "active" : ""}`}
               >
-                <nav.icon></nav.icon>
+                {nav.icon}
                 <NavText>{nav.name}</NavText>
               </NavItem>
             ))}
@@ -278,6 +272,28 @@ export default function Dashboard() {
             ></StatsCard>
           </StatsCardWrapper>
 
+          <FILTER_SECTION>
+            <SearchInput placeholder="Search Post"></SearchInput>
+
+            <FILTER_CONTAINER>
+              <FilterButton>
+                <FilterIcon></FilterIcon>
+                <SPAN>Filters</SPAN>
+                <DropDownIcon />
+              </FilterButton>
+
+              <PAGINATION>
+                <ChevronLeft />
+                <PAGINATION_CONTAINER>
+                  <SPAN>1-10</SPAN>
+                  <SPAN>of</SPAN>
+                  <SPAN style={{ color: "gray" }}>240</SPAN>
+                </PAGINATION_CONTAINER>
+                <ChevronRight />
+              </PAGINATION>
+            </FILTER_CONTAINER>
+          </FILTER_SECTION>
+
           <TableWrapper>
             <TABLE>
               <TableHead>
@@ -291,17 +307,68 @@ export default function Dashboard() {
                 </TR>
               </TableHead>
               <TableBody>
-                <TR>
-                  <TD>Body Content</TD>
-                  <TD>Title</TD>
-                  <TD>Post ID</TD>
-                  <TD>User</TD>
-                  <TD>Status</TD>
-                  <TD>Action</TD>
-                </TR>
+                {posts.map((post) => (
+                  <TR key={post.id}>
+                    <TD className="body-colum">
+                      {post.body.slice(0, 20) + "..."}
+                    </TD>
+                    <TD className="title-colum">{post.title}</TD>
+                    <TD>{post.id}</TD>
+                    <TD>{post.user}</TD>
+                    <TD className="status-column">
+                      {post.status === "Success" && (
+                        <SUCCESS_BADGE>{post.status}</SUCCESS_BADGE>
+                      )}
+                      {post.status === "Failed" && (
+                        <FAILED_BADGE>{post.status}</FAILED_BADGE>
+                      )}
+
+                      {post.status === "Pending" && (
+                        <PENDING_BADGE>{post.status}</PENDING_BADGE>
+                      )}
+                    </TD>
+                    <TD>
+                      <ActionWrapper>
+                        <EDIT_BUTTON>
+                          <PencilIcon />
+                        </EDIT_BUTTON>
+                        <DELETE_BUTTON>
+                          <TrashIcon />
+                        </DELETE_BUTTON>
+                      </ActionWrapper>
+                    </TD>
+                  </TR>
+                ))}
               </TableBody>
             </TABLE>
           </TableWrapper>
+
+          <POST_WRAPPER>
+            {posts.map((post) => (
+              <POST_ITEM key={post.id}>
+                <TEX_CONTAINER>
+                  <TITLE_TEXT>{post.title}</TITLE_TEXT>
+                  <ParagraphText>
+                    {post.body.slice(0, 30) + "..."}
+                  </ParagraphText>
+                </TEX_CONTAINER>
+
+                <MOBILE_CONTAINER>
+                  {post.status === "Success" && (
+                    <SUCCESS_BADGE>{post.status}</SUCCESS_BADGE>
+                  )}
+                  {post.status === "Failed" && (
+                    <FAILED_BADGE>{post.status}</FAILED_BADGE>
+                  )}
+
+                  {post.status === "Pending" && (
+                    <PENDING_BADGE>{post.status}</PENDING_BADGE>
+                  )}
+                  <ParagraphText>Posted by: {post.user}</ParagraphText>
+                </MOBILE_CONTAINER>
+              </POST_ITEM>
+            ))}
+          </POST_WRAPPER>
         </MainPage>
       </MainDashboardWrapper>
     </Wraper>

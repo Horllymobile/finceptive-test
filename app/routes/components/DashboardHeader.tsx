@@ -57,7 +57,7 @@ const ProfileName = styled.p`
   color: #6b7180;
 `;
 
-const DropDown = styled(ChevronDown)`
+export const DropDownIcon = styled(ChevronDown)`
   color: #0a090b;
   width: 20px;
 `;
@@ -106,7 +106,7 @@ export function DashboardHeader() {
           <Avatar src="assets/Avatar.png"></Avatar>
           <ProfileNameWrapper>
             <ProfileName>Tee</ProfileName>
-            <DropDown />
+            <DropDownIcon />
           </ProfileNameWrapper>
         </ProfileWraper>
 
